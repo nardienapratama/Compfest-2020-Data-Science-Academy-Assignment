@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Path of the file to read
-file_path = 'used_car_data.csv'
+file_path = '../resources/used_car_data.csv'
 
 read_data = pd.read_csv(file_path)
 
@@ -76,10 +76,15 @@ def stats(col):
     
 # Question 6: Are there any outliers in the Kilometers_Driven column? Include arguments for your answer.
 def boxPlot(colName):
+    print("Entire boxplot")
+    read_data.boxplot(column=colName)
+    plt.savefig(colName+'.png')
+
+# Question 6: Are there any outliers in the Kilometers_Driven column? Include arguments for your answer.
+def boxPlotWithoutFurthestOutlier(colName):    
+    print("Zoomed in boxplot - ignoring the furthest outlier")
     read_data.boxplot(column=colName)
     plt.ylim(0, 800000)
-    plt.savefig(colName+'.png')
-    
 # Question 7: Does the year of manufacture correspond to the total distance usage?
 def linearReg(colXName, colYName):
     sns.lmplot(x=colXName, y=colYName, data=read_data)
@@ -114,11 +119,12 @@ def mostEconomicalFuel(fuelCol, mileageCol):
                     mileageDict[fuel] += float(str(i).split()[0])     
         mileageAvg[fuel] = mileageDict[fuel]/fuelDict[fuel]
         
-    print(fuelDict)
-    print(mileageDict, "\n")
+#    print(fuelDict)
+#    print(mileageDict, "\n")
     print('Average mileage for each fuel type:\n')
     for i in mileageAvg:
         print(i, ":", mileageAvg[i])
+    print("\nMost Efficient Fuel Type: Petrol")
 
 # Question 10: What are the different factors that affect the price of used cars in India? Include arguments for your answer.
 # This is a function that converts each value in the 'Location' column to integers. The returned list is then used as a parameter
@@ -144,9 +150,35 @@ def locationInt(locCol):
     print(locsFinal)
     return locsFinal
     
-
-
-
+# Question 1: Show all the makes of cars available in the dataset and how many cars there are for each make
+#findMake(nameCol)
+    
+# Question 2: Which city has the most used cars?
+#carsPerCity(locCol)
+    
+# Question 3: What is the distribution of the  model year of the used cars?
+#yearDistr(yearCol)
+    
+# Question 4: How many cars have a total distance usage of under 100,000 kilometers?
+#under100(kiloCol)
+    
+# Question 5: At what upper and lower limits can the total distance travelled be categorised as "low" or "high"? Include arguments for your answer.
+#stats(kiloCol)
+    
+# Question 6: Are there any outliers in the Kilometers_Driven column? Include arguments for your answer.
+#boxPlot('Kilometers_Driven')
+    
+# Question 6: Are there any outliers in the Kilometers_Driven column? Include arguments for your answer.
+#boxPlotWithoutFurthestOutlier('Kilometers_Driven')
+    
+# Question 7: Does the year of manufacture correspond to the total distance usage?
+#linearReg('Year', 'Kilometers_Driven')
+    
+# Question 8: How many cars have had three owners already?
+#ownerType(ownerCol)
+    
+# Question 9: Which type of fuel is the most efficient in terms of fuel consumption?
+#mostEconomicalFuel(fuelCol, mileageCol)
 
 
 
